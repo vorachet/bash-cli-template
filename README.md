@@ -5,7 +5,6 @@
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
 
 
-
 # Features
 
  * **bash-cli-template** allows you writing a readability CLI script 
@@ -20,7 +19,7 @@
 
 ### Running script example
 
-The script example of the helloworld CLI script is available in examples folder. You can run the helloworld CLI script with the following steps.
+The script example is available in folder "examples". You can run "helloworld.sh" with the following steps.
 
 ```
 $ git clone https://github.com/vorachet/bash-cli-template.git
@@ -28,13 +27,11 @@ $ cd bash-cli-template/examples
 $ ./helloworld.sh
 ```
 
-###  A quick walk through the CLI interface
+###  A quick walk through the CLI 
 
-Let us see the capabilities of the CLI example before going to write your first CLI with **bash-cli-template**. This section gives a quick walk through the CLI interface after implementation. **It is zero scripting and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
+Let us see capabilities of the CLI example before learn to write your first CLI with **bash-cli-template**. 
 
-##### Basic information of CLI
-
-The default script behavior is to show help messages if the user running the script without option and command. It gives the same result with help option "./helloworld.sh -h"
+##### Command usage of CLI
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
 
@@ -46,11 +43,11 @@ The default script behavior is to show help messages if the user running the scr
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/3.jpg)
 
-Both option name and option value will be checked by the validator.
+Both option name and value will be validated by the built-in validator.
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/4.jpg)
 
-If the user missing mandatory options, CLI will be stopped and drop user an error message. 
+If the user missing mandatory options, CLI will be stopped and drop an error message. 
 
 ##### Inspecting command options 
 
