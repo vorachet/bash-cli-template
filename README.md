@@ -7,10 +7,11 @@
 
 # Features
 
- * **bash-cli-template** allows you writing a quality CLI script by providing you built-in validation for mandatory and optional command parameters and to ease the user of your script can understand command usage with built-in readability CLI interface flow.
+ * **bash-cli-template** allows you writing a quality CLI script
+ * **bash-cli-template** provides built-in validation for mandatory and optional command parameters
+ * **bash-cli-template** eases the script user can understand command usage with built-in readability CLI flow.
  * **bash-cli-template** provides built-in debug and help command
- * **bash-cli-template** provides Data-Driven scripting for your command definitions
- * **bash-cli-template** provides framework to implement the body of your command execution. 
+ * **bash-cli-template** provides easy steps to define commands and to implement the body of your command execution
 
 # Learning by example
 
@@ -63,9 +64,9 @@ When the user run the script without debug mode
 
 Above pictures show interface capabilities that you can write a quality CLI script with zero scripting effort. Readability and validation are built-in in **bash-cli-template**.
 
-###  Implementing helloworld CLI script 
+###  Skimming script example (helloworld CLI script) 
 
-This is the complete source of helloworld.sh.  
+This is the complete source of helloworld.sh.  Let you skimming the script example and go to read implementation guide in the next section.
 
 File: helloworld.sh
 ```
@@ -155,12 +156,11 @@ source ../base.sh
 
 ``` 
 
-### Procedure to write your CLI script with bash-cli-template
+### Steps to write your own CLI script with bash-cli-template
 
-**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. 
+**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. **bash-cli-template** can understand your command definitions with following steps.
 
-##### variables in your script
-
+##### Define the following variables in your script
 
  1. SCRIPT_NAME
  2. DOMAIN_OPTION_NAME[]
@@ -170,7 +170,7 @@ source ../base.sh
  6. DOMAIN_CMD_OPTIONS[]
  7. DOMAIN_OPTION_INPUT_DESC[]
 
-The example command definition in helloworld.sh
+The command definition example in helloworld.sh.
 ```
 SCRIPT_NAME="example1"
 DOMAIN_OPTION_NAME[0]="-t"
@@ -213,10 +213,24 @@ hello() {
 In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
 
 ```
-DOMAIN_OPTION_VALUE[0]=<the string value of (-t|--text) will be assigned by base.sh before calling hello()>
-DOMAIN_OPTION_VALUE[1]=<the boolean value of (-u|--uppercase) will be assigned by base.sh before calling hello()>
-DOMAIN_OPTION_VALUE[2]=<the boolean value of (-l|--lowercase) will be assigned by base.sh before calling hello()>
+DOMAIN_OPTION_VALUE[0]
+DOMAIN_OPTION_VALUE[1]
+DOMAIN_OPTION_VALUE[2]
 ```
+
+ * DOMAIN_OPTION_VALUE[0] is the string value of (-t|--text). It will be assigned by base.sh before calling hello()
+ * DOMAIN_OPTION_VALUE[1] is the boolean value of (-u|--uppercase). It will be assigned by base.sh before calling hello()
+ * DOMAIN_OPTION_VALUE[2] is the boolean value of (-l|--lowercase). It will be assigned by base.sh before calling hello()
+
+DOMAIN_OPTION_VALUE[0] , DOMAIN_OPTION_VALUE[1], and DOMAIN_OPTION_VALUE[2] are important for hello() function becasue the following definitions.
+
+```
+DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
+DOMAIN_CMD_OPTIONS[3]="1,2"
+```
+
+ * DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"  means DOMAIN_OPTION_NAME[0]="-t" is mandatory parameter of hello command
+ * DOMAIN_CMD_OPTIONS[3]="1,2" means DOMAIN_OPTION_NAME[1]="-u" and DOMAIN_OPTION_NAME[2]="-l" are optional parameter of hello command
 
 ##### Installing bash-cli-template
 
