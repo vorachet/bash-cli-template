@@ -5,9 +5,10 @@
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
 
 
+
 # Features
 
- * **bash-cli-template** allows you writing a quality CLI script
+ * **bash-cli-template** allows you writing a readability CLI script 
  * **bash-cli-template** provides built-in validation for mandatory and optional command parameters
  * **bash-cli-template** eases the script user can understand command usage with built-in readability CLI flow.
  * **bash-cli-template** provides built-in debug and help command
@@ -19,8 +20,7 @@
 
 ### Running script example
 
-The script example of the helloworld CLI script is available in examples folder. 
-You can run the helloworld CLI script with the following steps.
+The script example of the helloworld CLI script is available in examples folder. You can run the helloworld CLI script with the following steps.
 
 ```
 $ git clone https://github.com/vorachet/bash-cli-template.git
@@ -160,7 +160,7 @@ source ../base.sh
 
 **bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. **bash-cli-template** can understand your command definitions with following steps.
 
-##### Define the following variables in your script
+#### Define the following variables in your script
 
  1. SCRIPT_NAME
  2. DOMAIN_OPTION_NAME[]
@@ -193,7 +193,7 @@ DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
 DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
 ```
 
-##### Declaring shell script function that corresponding to your command definition.
+#### Declaring shell script function that corresponding to your command definition.
 
 By looking the following command definition in helloworld.sh, the data type of the option "hello" is "cmd". This means "hello" option is a command. hello() function must be declared in your script. 
 
@@ -208,7 +208,7 @@ hello() {
 }
 ```
 
-##### Implementing the body of your command
+#### Implementing the body of your command
 
 In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
 
@@ -232,7 +232,7 @@ DOMAIN_CMD_OPTIONS[3]="1,2"
  * DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"  means DOMAIN_OPTION_NAME[0]="-t" is mandatory parameter of hello command
  * DOMAIN_CMD_OPTIONS[3]="1,2" means DOMAIN_OPTION_NAME[1]="-u" and DOMAIN_OPTION_NAME[2]="-l" are optional parameter of hello command
 
-##### Installing bash-cli-template
+#### Installing bash-cli-template
 
 Add "source ./base.sh" at the end of your script
 
