@@ -153,9 +153,9 @@ source ../base.sh
 
 ``` 
 
-### Steps to write your own CLI script with bash-cli-template
+### Steps to write your own CLI script with bash-cli-template 
 
-**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. Before allowing **bash-cli-template** can understand your command definitions, you have to follow a few steps below.
+This section describes the steps to write a simplified CLI using **bash-cli-template** and bring the script example (helloworld.sh) back to you again. **bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. Before allowing **bash-cli-template** can understand your command definitions, you have to follow a few steps below.
 
 #### Define the following variables in your script
 
