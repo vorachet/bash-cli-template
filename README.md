@@ -3,10 +3,10 @@
 
 # Features
 
- * **bash-cli-template** provides a framework for creating BASH shell command-line interface.
+ * **bash-cli-template** allows you writing a quality CLI script by providing you built-in validation for mandatory and optional command parameters and to ease the user of your script can understand command usage with built-in readability CLI interface flow.
  * **bash-cli-template** provides built-in debug and help command
- * **bash-cli-template** provides built-in validation for mandatory options 
- * **bash-cli-template** provides built-in function to show optional parameters on each command 
+ * **bash-cli-template** provides Data-Driven scripting for your command definitions
+ * **bash-cli-template** provides a framework to implement the body of your command execution. 
 
 # Learning by examples
 
@@ -96,14 +96,14 @@ DOMAIN_OPTION_ALTERNATIVE_NAME[2]="--lowercase"
 DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld" 
 
 # Option data type. It consists of string, boolean, and cmd.
-# 	string does not allow you set empty option value
-# 	object allows you flag the option without giving value
-# 	cmd is the command used in various situations in your script. 
-#	cmd may require one or more mandatory or optional parameters
-DOMAIN_OPTION_DATA_TYPE[0]='string'
-DOMAIN_OPTION_DATA_TYPE[1]='boolean'
-DOMAIN_OPTION_DATA_TYPE[2]='boolean'
-DOMAIN_OPTION_DATA_TYPE[3]='cmd'
+#   string does not allow you set empty option value
+#   object allows you flag the option without giving value
+#   cmd is the command used in various situations in your script. 
+#   cmd may require one or more mandatory or optional parameters
+DOMAIN_OPTION_DATA_TYPE[0]="string"
+DOMAIN_OPTION_DATA_TYPE[1]="boolean"
+DOMAIN_OPTION_DATA_TYPE[2]="boolean"
+DOMAIN_OPTION_DATA_TYPE[3]="cmd"
 
 # Setting mandatory parameters for cmd
 DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
@@ -119,17 +119,21 @@ DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
 
 # Implementation of "hello" command
 # 
-# DOMAIN_OPTION_VALUE[] is an array managed by the template base.sh
-# The number of array items of DOMAIN_OPTION_VALUE[] will be identical to DOMAIN_OPTION_NAME[].
-# Possible values on each data type: 
-# 
-#   Possible values of string data type  =  { "<undefined>" , ... }
-#   Possible values of boolean data type =  { 0 , 1 }
-#   Possible values of cmd data type     =  { "wait" , "invoked" }
+# DOMAIN_OPTION_VALUE[] is an array variable managed by base.sh
+# The number of array items of DOMAIN_OPTION_VALUE[] are identical to DOMAIN_OPTION_NAME[].
 # 
 hello() {
     # -t | --text
     TEXT=${DOMAIN_OPTION_VALUE[0]}
+
+    if [ "${TEXT}" == "Hello" ]; then
+        TEXT="Sawasdee!"
+    fi
+
+    if [ "${TEXT}" == "Sawasdee" ]; then
+        TEXT="Hello!"
+    fi
+
     # -u | --uppercase
     ENABLED_UPPERCASE=${DOMAIN_OPTION_VALUE[1]}
     if [ ${ENABLED_UPPERCASE} == true ]; then
@@ -143,7 +147,7 @@ hello() {
         exit
     fi 
 
-    echo ${TEXT}
+    echo ${TEXT} 
     exit
 }
 
@@ -151,34 +155,78 @@ source ../base.sh
 
 ``` 
 
-# Concept 
+# Procedure to write your CLI script with bash-cli-template
 
-**bash-cli-template** comes with **base.sh** and the following framework for creating CLI.
+**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. 
+
+## Declaring 7 variables in your script
+
+
+ 1. SCRIPT_NAME
+ 2. DOMAIN_OPTION_NAME[]
+ 3. DOMAIN_OPTION_ALTERNATIVE_NAME[]
+ 4. DOMAIN_OPTION_DATA_TYPE[]
+ 5. DOMAIN_CMD_MANDATORY_OPTIONS[]
+ 6. DOMAIN_CMD_OPTIONS[]
+ 7. DOMAIN_OPTION_INPUT_DESC[]
+
+The example command definition in helloworld.sh
+```
+SCRIPT_NAME="example1"
+DOMAIN_OPTION_NAME[0]="-t"
+DOMAIN_OPTION_NAME[1]="-u"
+DOMAIN_OPTION_NAME[2]="-l"
+DOMAIN_OPTION_NAME[3]="hello"
+DOMAIN_OPTION_ALTERNATIVE_NAME[0]="--text"
+DOMAIN_OPTION_ALTERNATIVE_NAME[1]="--uppercase"
+DOMAIN_OPTION_ALTERNATIVE_NAME[2]="--lowercase"
+DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld" 
+DOMAIN_OPTION_DATA_TYPE[0]="string"
+DOMAIN_OPTION_DATA_TYPE[1]="boolean"
+DOMAIN_OPTION_DATA_TYPE[2]="boolean"
+DOMAIN_OPTION_DATA_TYPE[3]="cmd"
+DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
+DOMAIN_CMD_OPTIONS[3]="1,2"
+DOMAIN_OPTION_INPUT_DESC[0]="text"
+DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
+DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
+DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
+```
+
+## Declaring shell script function that corresponding to your command definition.
+
+By looking the following command definition in helloworld.sh, the data type of the option "hello" is "cmd". This means "hello" option is a command. hello() function must be declared in your script. 
 
 ```
-# Step 1/5. There are 7 variables you have to define in order to implement the functionality of your script.
-# See "Learning by examples" section for details.
-#     SCRIPT_NAME
-#     DOMAIN_OPTION_NAME[]
-#     DOMAIN_OPTION_ALTERNATIVE_NAME[]
-#     DOMAIN_OPTION_DATA_TYPE[]
-#     DOMAIN_CMD_MANDATORY_OPTIONS[]
-#     DOMAIN_CMD_OPTIONS[]
-#     DOMAIN_OPTION_INPUT_DESC[]
+DOMAIN_OPTION_NAME[3]="hello"
+DOMAIN_OPTION_DATA_TYPE[3]='cmd'
+```
 
-# Step 2/5. Create a set of shell functions corresponding to the value you defined in DOMAIN_OPTION_NAME[]
-#     - You have to understand the concept of DOMAIN_OPTION_DATA_TYPE[]   
+```
+hello() {
+  # the implementation of hello command    
+}
+```
 
-# Step 3/5. Define mandatory parameters on each command.
+## Implementing the body of your command
 
-# Step 4/5. Define optional parameters on each command.
+In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
 
-# Step 5/5. Add "source ./base.sh" at the end of your script
+```
+DOMAIN_OPTION_VALUE[0]=<the string value of (-t|--text) will be assigned by base.sh before calling hello()>
+DOMAIN_OPTION_VALUE[1]=<the boolean value of (-u|--uppercase) will be assigned by base.sh before calling hello()>
+DOMAIN_OPTION_VALUE[2]=<the boolean value of (-l|--lowercase) will be assigned by base.sh before calling hello()>
+```
+
+## Installing bash-cli-template
+
+Add "source ./base.sh" at the end of your script
+
+```
+...
+
 source ./base.sh
-
-# DONE!
-```
-
+``` 
 # License 
 
 The MIT License (MIT)

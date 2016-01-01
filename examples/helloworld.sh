@@ -29,10 +29,10 @@ DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld"
 #   object allows you flag the option without giving value
 #   cmd is the command used in various situations in your script. 
 #   cmd may require one or more mandatory or optional parameters
-DOMAIN_OPTION_DATA_TYPE[0]='string'
-DOMAIN_OPTION_DATA_TYPE[1]='boolean'
-DOMAIN_OPTION_DATA_TYPE[2]='boolean'
-DOMAIN_OPTION_DATA_TYPE[3]='cmd'
+DOMAIN_OPTION_DATA_TYPE[0]="string"
+DOMAIN_OPTION_DATA_TYPE[1]="boolean"
+DOMAIN_OPTION_DATA_TYPE[2]="boolean"
+DOMAIN_OPTION_DATA_TYPE[3]="cmd"
 
 # Setting mandatory parameters for cmd
 DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
@@ -46,19 +46,24 @@ DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
 DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
 DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
 
+
 # Implementation of "hello" command
 # 
-# DOMAIN_OPTION_VALUE[] is an array managed by the template base.sh
-# The number of array items of DOMAIN_OPTION_VALUE[] will be identical to DOMAIN_OPTION_NAME[].
-# Possible values on each data type: 
-# 
-#   Possible values of string data type  =  { "<undefined>" , ... }
-#   Possible values of boolean data type =  { 0 , 1 }
-#   Possible values of cmd data type     =  { "wait" , "invoked" }
+# DOMAIN_OPTION_VALUE[] is an array variable managed by base.sh
+# The number of array items of DOMAIN_OPTION_VALUE[] are identical to DOMAIN_OPTION_NAME[].
 # 
 hello() {
     # -t | --text
     TEXT=${DOMAIN_OPTION_VALUE[0]}
+
+    if [ "${TEXT}" == "Hello" ]; then
+        TEXT="Sawasdee!"
+    fi
+
+    if [ "${TEXT}" == "Sawasdee" ]; then
+        TEXT="Hello!"
+    fi
+
     # -u | --uppercase
     ENABLED_UPPERCASE=${DOMAIN_OPTION_VALUE[1]}
     if [ ${ENABLED_UPPERCASE} == true ]; then
@@ -72,7 +77,7 @@ hello() {
         exit
     fi 
 
-    echo ${TEXT}
+    echo ${TEXT} 
     exit
 }
 
