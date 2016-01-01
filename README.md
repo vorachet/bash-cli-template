@@ -25,7 +25,7 @@ $ ./helloworld.sh
 
 ###  A quick walk through the CLI interface
 
-This section gives a quick walk through the CLI interface after implementation. **It is zero coding and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
+This section gives a quick walk through the CLI interface after implementation. **It is zero scripting and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
 
 ##### Basic information of CLI
 
@@ -61,6 +61,7 @@ When the user run the script without debug mode.
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/6.jpg)
 
+Above pictures show interface capabilities that you can write a quality CLI script with zero scripting effort. Readability and validation are built-in in **bash-cli-template**.
 
 ###  Implementing helloworld CLI script 
 
