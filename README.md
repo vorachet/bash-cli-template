@@ -155,7 +155,7 @@ source ../base.sh
 
 ### Steps to write your own CLI script with bash-cli-template
 
-**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. **bash-cli-template** can understand your command definitions with following steps.
+**bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. Before allowing **bash-cli-template** can understand your command definitions, you have to follow a few steps below.
 
 #### Define the following variables in your script
 
@@ -207,6 +207,9 @@ hello() {
 
 #### Implementing the body of your command
 
+
+##### Understanding DOMAIN_OPTION_VALUE[]
+
 In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
 
 ```
@@ -218,6 +221,9 @@ DOMAIN_OPTION_VALUE[2]
  * DOMAIN_OPTION_VALUE[0] is the string value of (-t|--text). It will be assigned by base.sh before calling hello()
  * DOMAIN_OPTION_VALUE[1] is the boolean value of (-u|--uppercase). It will be assigned by base.sh before calling hello()
  * DOMAIN_OPTION_VALUE[2] is the boolean value of (-l|--lowercase). It will be assigned by base.sh before calling hello()
+
+
+##### Understanding DOMAIN_CMD_MANDATORY_OPTIONS[] and DOMAIN_CMD_OPTIONS[]
 
 DOMAIN_OPTION_VALUE[0] , DOMAIN_OPTION_VALUE[1], and DOMAIN_OPTION_VALUE[2] are important for hello() function becasue the following definitions.
 
