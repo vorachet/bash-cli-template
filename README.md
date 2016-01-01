@@ -1,5 +1,5 @@
 
-# Bash shell script template for CLI development
+# Bash shell script template for readability CLI
 
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
