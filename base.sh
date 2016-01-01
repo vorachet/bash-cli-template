@@ -181,6 +181,7 @@ process() {
       if [ $DEBUG == true ];  then
             echo -e "\n\t*********** DEBUG ***********"
             echo -e "\t-d | --debug = ${DEBUG}"
+            echo -e "\t-h | --help"
             for i in ${!DOMAIN_OPTION_NAME[@]}
             do
                    echo -e "\t${DOMAIN_OPTION_NAME[$i]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} = ${DOMAIN_OPTION_VALUE[$i]}"

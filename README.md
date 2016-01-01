@@ -54,12 +54,17 @@ $ ./helloworld.sh
 
 This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interfaces work. All interface interactions will be managed by bash.sh.
 
-#### Basic informaton of your CLI
+##### Basic informaton of your CLI
 
-The default script behavior is to show help messages if the user running the script without option and command.
+The default script behavior is to show help messages if the user running the script without option and command. It gives the same result with help option "./helloworld.sh -h"
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
 
+##### Use debug option to inspect your CLI options and commands
+
+Debug option is a built-in option. You can inspect all CLI options and commands with option "-d or --debug"
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/2.jpg)
 
 ###  Implementing helloworld CLI script 
 
