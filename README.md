@@ -39,8 +39,9 @@ source ./base.sh
 
 ## helloworld CLI script  
 
-The code example of the helloworld CLI script is available in examples folder. 
+### Running script example
 
+The script example of the helloworld CLI script is available in examples folder. 
 You can run the helloworld CLI script with the following steps.
 
 ```
@@ -48,6 +49,19 @@ $ git clone https://github.com/vorachet/bash-cli-template.git
 $ cd bash-cli-template/examples
 $ ./helloworld.sh
 ```
+
+###  A quick walk through the CLI interface after implementation
+
+This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interface because all interface interactions will be managed by bash.sh.
+
+#### Run helloworld CLI script with
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
+
+
+###  Implementing helloworld CLI script 
+
+You can learn the framework of **bash-cli-template** with the following script example or go to folder "examples".
 
 File: helloworld.sh
 ```

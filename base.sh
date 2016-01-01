@@ -1,8 +1,8 @@
-#!/bin/bash
-# bash-cmd-template
+#! /bin/bash
+# bash-cli-template
 # Bash v3.x shell script template for command-line interfaces.
-# https://github.com/vorachet/bash-cmd-template
-# MIT License
+# https://github.com/vorachet/bash-cli-template
+# MIT License 
 
 ALL_PARAMS=$@
 DEBUG=false
