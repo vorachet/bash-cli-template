@@ -8,29 +8,29 @@ ALL_PARAMS=$@
 DEBUG=false
 CURRENT_CMD_INDEX=0
 
-for i in ${!DOMAIN_OPTION_NAME[@]}
+for i in "${!DOMAIN_OPTION_NAME[@]}"
 do
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "" ];  then
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "" ];  then
             DOMAIN_OPTION_DATA_TYPE[$i]="string"
       fi
 
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "string" ] ; then 
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "string" ] ; then 
             DOMAIN_OPTION_VALUE[$i]="<undefined>"
       fi   
 
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "boolean" ] ; then 
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "boolean" ] ; then 
             DOMAIN_OPTION_VALUE[$i]=false
       fi
 
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "cmd" ] ; then 
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "cmd" ] ; then 
             DOMAIN_OPTION_VALUE[$i]="wait"
       fi   
 done
 
 SPECLINES=""
-for i in ${!DOMAIN_OPTION_NAME[@]}
+for i in "${!DOMAIN_OPTION_NAME[@]}"
 do
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} != "cmd" ];  then
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" != "cmd" ];  then
             SPECLINES="${SPECLINES} \t[${DOMAIN_OPTION_NAME[$i]}|${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} <${DOMAIN_OPTION_INPUT_DESC[$i]}>]\n"
       fi         
 done
@@ -39,9 +39,9 @@ SPECLINES="${SPECLINES}\t[-h|--help]\n"
 
 SCRIPT_OPTIONS=""
 SCRIPT_CMDS=""
-for i in ${!DOMAIN_OPTION_DATA_TYPE[@]}
+for i in "${!DOMAIN_OPTION_DATA_TYPE[@]}"
 do
-      if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} != "cmd" ];  then
+      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" != "cmd" ];  then
             SCRIPT_OPTIONS="${SCRIPT_OPTIONS} 
                               \t\t${DOMAIN_OPTION_NAME[$i]}  
                               \tEx. ${DOMAIN_OPTION_INPUT_EXAMPLE[$i]}\n
@@ -58,7 +58,7 @@ do
             done
 
             OPTIONAL_OPS=""                  
-            for op in ${DOMAIN_CMD_OPTIONS[@]}
+            for op in "${DOMAIN_CMD_OPTIONS[@]}"
             do
                   for iop in $(echo ${op} | tr "," "\n")
                   do
@@ -93,9 +93,9 @@ fi
 while [ "$1" != "" ]; do
       for i in ${!DOMAIN_OPTION_NAME[@]}
       do
-            if [[ ( ${DOMAIN_OPTION_NAME[$i]} == $1 ) ||  
-                  ( ${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} == $1 ) ]] ; then
-                  if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "string" ] ; then 
+            if [[ ( "${DOMAIN_OPTION_NAME[$i]}" == "$1" ) ||  
+                  ( "${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]}" == "$1" ) ]] ; then
+                  if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "string" ] ; then 
                         if [[ ( ${2:0:1} == "-" ) || ( ${2:0:1} == "") ]] ; then 
                               DOMAIN_OPTION_VALUE[$i]='<undefined>'
                         else  
@@ -147,7 +147,7 @@ validate_string_parameter() {
       local psname=$1
       local ptname=$2
       local pvalue=$3
-      if [ ${pvalue} == "<undefined>" ];  then
+      if [ "${pvalue}" == "<undefined>" ];  then
             echo -e "\t\t${psname}|${ptname}  (Not Found)"
             echo -e "\t\tUsage: \"${psname}|${ptname}\" is mandatory option"
             exit
@@ -161,7 +161,7 @@ validate_string_parameter() {
 show_optional_parameters() {
       local i
       local options=""
-      for i in $(echo ${DOMAIN_CMD_OPTIONS[$CURRENT_CMD_INDEX]} | tr "," "\n")
+      for i in $(echo "${DOMAIN_CMD_OPTIONS[$CURRENT_CMD_INDEX]}" | tr "," "\n")
       do
             options="${options} ${DOMAIN_OPTION_NAME[$i]}" 
       done
@@ -189,10 +189,10 @@ process() {
             echo -e "\t*********** DEBUG ***********"
       fi
 
-      for j in ${!DOMAIN_OPTION_NAME[@]}
+      for j in "${!DOMAIN_OPTION_NAME[@]}"
       do
-            if [ ${DOMAIN_OPTION_DATA_TYPE[$j]} == "cmd" ];  then
-                  if [ ${DOMAIN_OPTION_VALUE[$j]} == "invoked" ];  then
+            if [ "${DOMAIN_OPTION_DATA_TYPE[$j]}" == "cmd" ];  then
+                  if [ "${DOMAIN_OPTION_VALUE[$j]}" == "invoked" ];  then
 
                         if [ $DEBUG == true ];  then
                               echo -e "\ninvoking (${DOMAIN_OPTION_NAME[$j]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$j]}) command...\n"

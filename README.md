@@ -1,5 +1,5 @@
 
-# Bash shell script template for command-line interfaces.
+# Bash shell script template for CLI development
 
 # Features
 
@@ -8,33 +8,6 @@
  * **bash-cli-template** provides built-in validation for mandatory options 
  * **bash-cli-template** provides built-in function to show optional parameters on each command 
 
-# Concept 
-
-**bash-cli-template** comes with **base.sh** and the following framework for creating CLI.
-
-```
-# Step 1/5. There are 7 variables you have to define in order to implement the functionality of your script.
-# See "Learning by examples" section for details.
-#     SCRIPT_NAME
-#     DOMAIN_OPTION_NAME[]
-#     DOMAIN_OPTION_ALTERNATIVE_NAME[]
-#     DOMAIN_OPTION_DATA_TYPE[]
-#     DOMAIN_CMD_MANDATORY_OPTIONS[]
-#     DOMAIN_CMD_OPTIONS[]
-#     DOMAIN_OPTION_INPUT_DESC[]
-
-# Step 2/5. Create a set of shell functions corresponding to the value you defined in DOMAIN_OPTION_NAME[]
-#     - You have to understand the concept of DOMAIN_OPTION_DATA_TYPE[]   
-
-# Step 3/5. Define mandatory parameters on each command.
-
-# Step 4/5. Define optional parameters on each command.
-
-# Step 5/5. Add "source ./base.sh" at the end of your script
-source ./base.sh
-
-# DONE!
-```
 # Learning by examples
 
 ## helloworld CLI script  
@@ -54,7 +27,7 @@ $ ./helloworld.sh
 
 This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interfaces work. All interface interactions will be managed by bash.sh.
 
-##### Basic informaton of your CLI
+##### Basic information of your CLI
 
 The default script behavior is to show help messages if the user running the script without option and command. It gives the same result with help option "./helloworld.sh -h"
 
@@ -65,6 +38,16 @@ The default script behavior is to show help messages if the user running the scr
 Debug option is a built-in option. You can inspect all CLI options and commands with option "-d or --debug"
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/2.jpg)
+
+##### Built-in validation for mandatory options
+
+The built-in validator will advise the user missing mandatory options.
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/3.jpg)
+
+Both option name and option value will be checked by the validator.
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/4.jpg)
 
 ###  Implementing helloworld CLI script 
 
@@ -154,7 +137,33 @@ source ../base.sh
 
 ``` 
 
-## Reviewing helloworld CLI script  
+# Concept 
+
+**bash-cli-template** comes with **base.sh** and the following framework for creating CLI.
+
+```
+# Step 1/5. There are 7 variables you have to define in order to implement the functionality of your script.
+# See "Learning by examples" section for details.
+#     SCRIPT_NAME
+#     DOMAIN_OPTION_NAME[]
+#     DOMAIN_OPTION_ALTERNATIVE_NAME[]
+#     DOMAIN_OPTION_DATA_TYPE[]
+#     DOMAIN_CMD_MANDATORY_OPTIONS[]
+#     DOMAIN_CMD_OPTIONS[]
+#     DOMAIN_OPTION_INPUT_DESC[]
+
+# Step 2/5. Create a set of shell functions corresponding to the value you defined in DOMAIN_OPTION_NAME[]
+#     - You have to understand the concept of DOMAIN_OPTION_DATA_TYPE[]   
+
+# Step 3/5. Define mandatory parameters on each command.
+
+# Step 4/5. Define optional parameters on each command.
+
+# Step 5/5. Add "source ./base.sh" at the end of your script
+source ./base.sh
+
+# DONE!
+```
 
 # License 
 
