@@ -1,14 +1,18 @@
 
 # Bash shell script template for CLI development
 
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
+
+
 # Features
 
  * **bash-cli-template** allows you writing a quality CLI script by providing you built-in validation for mandatory and optional command parameters and to ease the user of your script can understand command usage with built-in readability CLI interface flow.
  * **bash-cli-template** provides built-in debug and help command
  * **bash-cli-template** provides Data-Driven scripting for your command definitions
- * **bash-cli-template** provides a framework to implement the body of your command execution. 
+ * **bash-cli-template** provides framework to implement the body of your command execution. 
 
-# Learning by examples
+# Learning by example
 
 ## helloworld CLI script  
 
@@ -25,7 +29,7 @@ $ ./helloworld.sh
 
 ###  A quick walk through the CLI interface
 
-This section gives a quick walk through the CLI interface after implementation. **It is zero scripting and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
+Let us see the capabilities of the CLI example before going to write your first CLI with **bash-cli-template**. This section gives a quick walk through the CLI interface after implementation. **It is zero scripting and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
 
 ##### Basic information of CLI
 
@@ -33,15 +37,11 @@ The default script behavior is to show help messages if the user running the scr
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
 
-##### To inspect CLI options and commands
-
-Debug option is a built-in option. You can inspect all CLI options and commands with option "-d or --debug"
+##### Inspecting CLI options and commands
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/2.jpg)
 
-##### Built-in validation for mandatory options
-
-The built-in validator will advise the user missing mandatory options.
+##### Built-in validator for mandatory options validation
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/3.jpg)
 
@@ -57,7 +57,7 @@ If all mandatory options are valid and debug mode is specified, the script will 
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/5.jpg)
 
-When the user run the script without debug mode.
+When the user run the script without debug mode
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/6.jpg)
 
@@ -65,7 +65,7 @@ Above pictures show interface capabilities that you can write a quality CLI scri
 
 ###  Implementing helloworld CLI script 
 
-You can learn the framework of **bash-cli-template** with the following script example or go to folder "examples".
+This is the complete source of helloworld.sh.  
 
 File: helloworld.sh
 ```
@@ -155,11 +155,11 @@ source ../base.sh
 
 ``` 
 
-# Procedure to write your CLI script with bash-cli-template
+### Procedure to write your CLI script with bash-cli-template
 
 **bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. 
 
-## Declaring 7 variables in your script
+##### variables in your script
 
 
  1. SCRIPT_NAME
@@ -193,7 +193,7 @@ DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
 DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
 ```
 
-## Declaring shell script function that corresponding to your command definition.
+##### Declaring shell script function that corresponding to your command definition.
 
 By looking the following command definition in helloworld.sh, the data type of the option "hello" is "cmd". This means "hello" option is a command. hello() function must be declared in your script. 
 
@@ -208,7 +208,7 @@ hello() {
 }
 ```
 
-## Implementing the body of your command
+##### Implementing the body of your command
 
 In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
 
@@ -218,7 +218,7 @@ DOMAIN_OPTION_VALUE[1]=<the boolean value of (-u|--uppercase) will be assigned b
 DOMAIN_OPTION_VALUE[2]=<the boolean value of (-l|--lowercase) will be assigned by base.sh before calling hello()>
 ```
 
-## Installing bash-cli-template
+##### Installing bash-cli-template
 
 Add "source ./base.sh" at the end of your script
 
