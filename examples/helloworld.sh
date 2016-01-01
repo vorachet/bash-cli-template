@@ -10,7 +10,7 @@
 #     DOMAIN_OPTION_INPUT_DESC[]
 
 # Script name
-SCRIPT_NAME="example1"
+SCRIPT_NAME="helloworld"
 
 # Option name
 DOMAIN_OPTION_NAME[0]="-t"
