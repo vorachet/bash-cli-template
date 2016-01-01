@@ -52,9 +52,11 @@ $ ./helloworld.sh
 
 ###  A quick walk through the CLI interface after implementation
 
-This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interface because all interface interactions will be managed by bash.sh.
+This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interfaces work. All interface interactions will be managed by bash.sh.
 
-#### Run helloworld CLI script with
+#### Basic informaton of your CLI
+
+The default script behavior is to show help messages if the user running the script without option and command.
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
 
