@@ -23,17 +23,17 @@ $ cd bash-cli-template/examples
 $ ./helloworld.sh
 ```
 
-###  A quick walk through the CLI interface after implementation
+###  A quick walk through the CLI interface
 
-This section gives a quick walk through the CLI interface after implementation. It is zero coding and configuration effort on providing the following interfaces work. All interface interactions will be managed by bash.sh.
+This section gives a quick walk through the CLI interface after implementation. **It is zero coding and configuration effort on providing the following interfaces work**. All interface interactions will be managed by bash.sh.
 
-##### Basic information of your CLI
+##### Basic information of CLI
 
 The default script behavior is to show help messages if the user running the script without option and command. It gives the same result with help option "./helloworld.sh -h"
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
 
-##### Use debug option to inspect your CLI options and commands
+##### To inspect CLI options and commands
 
 Debug option is a built-in option. You can inspect all CLI options and commands with option "-d or --debug"
 
@@ -48,6 +48,19 @@ The built-in validator will advise the user missing mandatory options.
 Both option name and option value will be checked by the validator.
 
 ![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/4.jpg)
+
+If the user missing mandatory options, CLI will be stopped and drop user an error message. 
+
+##### Inspecting command options 
+
+If all mandatory options are valid and debug mode is specified, the script will give the aid of command usage. 
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/5.jpg)
+
+When the user run the script without debug mode.
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/6.jpg)
+
 
 ###  Implementing helloworld CLI script 
 
