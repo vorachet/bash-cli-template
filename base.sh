@@ -1,8 +1,8 @@
 #! /bin/bash
-# bash-cli-template
-# Bash v3.x shell script template for command-line interfaces.
+# Bash shell script template for readability CLI
 # https://github.com/vorachet/bash-cli-template
 # MIT License 
+# Tested with GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin15)
 
 ALL_PARAMS=$@
 DEBUG=false
