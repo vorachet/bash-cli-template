@@ -25,10 +25,10 @@ DOMAIN_OPTION_ALTERNATIVE_NAME[2]="--lowercase"
 DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld" 
 
 # Option data type. It consists of string, boolean, and cmd.
-# string does not allow you set empty option value
-# object allows you flag the option without giveing option value string
-# cmd is the command used in various situations in your script
-# cmd may require one or more mandatory or optional options
+#   string does not allow you set empty option value
+#   object allows you flag the option without giving value
+#   cmd is the command used in various situations in your script. 
+#   cmd may require one or more mandatory or optional parameters
 DOMAIN_OPTION_DATA_TYPE[0]='string'
 DOMAIN_OPTION_DATA_TYPE[1]='boolean'
 DOMAIN_OPTION_DATA_TYPE[2]='boolean'
@@ -46,7 +46,7 @@ DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
 DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
 DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
 
-# Implementation of command "hello"
+# Implementation of "hello" command
 # 
 # DOMAIN_OPTION_VALUE[] is an array managed by the template base.sh
 # The number of array items of DOMAIN_OPTION_VALUE[] will be identical to DOMAIN_OPTION_NAME[].
