@@ -1,51 +1,3 @@
-
-# Bash shell script template for command-line interfaces.
-
-# Features
-
- * **bash-cli-template** provides a minimal framework for developing BASH shell command-line interface.
- * **bash-cli-template** provides built-in debug and help command
- * **bash-cli-template** provides built-in validation for mandatory options 
- * **bash-cli-template** provides built-in function to show optional parameters on each command 
-
-# Concept 
-
-**bash-cli-template** comes with one shell script **base.sh**. 
-
-File: mycli.sh
-```
-# Implementation of your script.
-
-# Step 1/2. There are 7 variables you have to define.
-
-#     SCRIPT_NAME
-#     DOMAIN_OPTION_NAME[]
-#     DOMAIN_OPTION_ALTERNATIVE_NAME[]
-#     DOMAIN_OPTION_DATA_TYPE[]
-#     DOMAIN_CMD_MANDATORY_OPTIONS[]
-#     DOMAIN_CMD_OPTIONS[]
-#     DOMAIN_OPTION_INPUT_DESC[]
-
-# Step 2/2.  Add "source ./base.sh" at the end of your script
-source ./base.sh
-
-# DONE!  ./mycli.sh  is ready! 
-```
-# Learning by example
-
-## helloworld CLI script  
-
-The complete example code of this helloworld CLI script is available in examples folder. 
-
-You can run the helloworld CLI script with the following steps.
-
-```
-$ git clone https://github.com/vorachet/bash-cli-template.git
-$ cd bash-cli-template/examples
-$ ./helloworld.sh
-```
-
-```
 #!/bin/bash
 
 # Implementation of your script 
@@ -125,5 +77,3 @@ hello() {
 }
 
 source ../base.sh
-
-``` 
