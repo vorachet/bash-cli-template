@@ -17,6 +17,7 @@ DOMAIN_OPTION_NAME[0]="-t"
 DOMAIN_OPTION_NAME[1]="-u"
 DOMAIN_OPTION_NAME[2]="-l"
 DOMAIN_OPTION_NAME[3]="hello"
+DOMAIN_OPTION_NAME[4]="list"
 
 # Alternative option name
 DOMAIN_OPTION_ALTERNATIVE_NAME[0]="--text"
@@ -45,7 +46,6 @@ DOMAIN_OPTION_INPUT_DESC[0]="text"
 DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
 DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
 DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
-
 
 # Implementation of "hello" command
 # 

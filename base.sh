@@ -48,29 +48,10 @@ do
                               \t\t 
                               \tNotes: ${DOMAIN_OPTION_INPUT_NOTES[$i]}\n"
       else 
-            MANDATORY_OPS=""                  
-            for mp in "${DOMAIN_CMD_MANDATORY_OPTIONS[@]}"
-            do
-                  for imp in $(echo ${mp} | tr "," "\n")
-                  do
-                        MANDATORY_OPS="${MANDATORY_OPS} ${DOMAIN_OPTION_NAME[$imp]}"
-                  done
-            done
-
-            OPTIONAL_OPS=""                  
-            for op in "${DOMAIN_CMD_OPTIONS[@]}"
-            do
-                  for iop in $(echo ${op} | tr "," "\n")
-                  do
-                        OPTIONAL_OPS="${OPTIONAL_OPS} ${DOMAIN_OPTION_NAME[$iop]}"
-                  done
-            done
 
             SCRIPT_CMDS="${SCRIPT_CMDS} 
                               \t${DOMAIN_OPTION_NAME[$i]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} \n\n
-                              \t\t${DOMAIN_OPTION_INPUT_DESC[$i]} \n
-                              \n\t\tMandatory parameters: ${MANDATORY_OPS}    
-                              \n\t\tOptional parameters: ${OPTIONAL_OPS}    \n\n"
+                              \t\t${DOMAIN_OPTION_INPUT_DESC[$i]} \n"
       fi
 done
 
@@ -121,6 +102,7 @@ while [ "$1" != "" ]; do
                         help
                         exit
                   fi
+
             fi
       done
       shift
@@ -191,14 +173,17 @@ process() {
 
       for j in "${!DOMAIN_OPTION_NAME[@]}"
       do
+
             if [ "${DOMAIN_OPTION_DATA_TYPE[$j]}" == "cmd" ];  then
                   if [ "${DOMAIN_OPTION_VALUE[$j]}" == "invoked" ];  then
+
+                        CURRENT_CMD_INDEX=$j
+                        echo "CURRENT_CMD_INDEX=$CURRENT_CMD_INDEX"
 
                         if [ $DEBUG == true ];  then
                               echo -e "\ninvoking (${DOMAIN_OPTION_NAME[$j]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$j]}) command...\n"
                         fi
-
-                        CURRENT_CMD_INDEX=$j
+                        
                         validate_mandatory_options
                         ${DOMAIN_OPTION_NAME[$CURRENT_CMD_INDEX]} 
                         break
