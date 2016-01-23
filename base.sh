@@ -35,7 +35,6 @@ do
             SPECLINES+=" \t[${BASH_CLI_OPT_NAME[$i]}|${BASH_CLI_OPT_ALT_NAME[$i]} <${BASH_CLI_OPT_DESC[$i]}>]\n"
       fi         
 done
-SPECLINES+=" \t[-d|--debug]\n"
 SPECLINES+=" \t[-h|--help]\n"
 
 SCRIPT_OPTIONS=""
