@@ -15,9 +15,7 @@
 
 # Learning by example
 
-## helloworld CLI script  
-
-### Running script example
+## Running script example
 
 The script example is available in folder "examples". You can run "helloworld.sh" with the following steps.
 
@@ -27,125 +25,92 @@ $ cd bash-cli-template/examples
 $ ./helloworld.sh
 ```
 
-###  A quick walk through the CLI 
 
-Let us see capabilities of the CLI example before learn to write your first CLI with **bash-cli-template**. 
+###  First CLI script with **bash-cli-template**
 
-##### Command usage of CLI
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/1.jpg)
-
-##### Inspecting CLI options and commands
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/2.jpg)
-
-##### Built-in validator for mandatory options validation
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/3.jpg)
-
-Both option name and value will be validated by the built-in validator.
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/4.jpg)
-
-If the user missing mandatory options, CLI will be stopped and drop an error message. 
-
-##### Inspecting command options 
-
-If all mandatory options are valid and debug mode is specified, the script will give the aid of command usage. 
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/5.jpg)
-
-When the user run the script without debug mode
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/6.jpg)
-
-Above pictures show interface capabilities that you can write a quality CLI script with zero scripting effort. Readability and validation are built-in in **bash-cli-template**.
-
-###  Skimming script example (helloworld CLI script) 
-
-This is the complete source of helloworld.sh.  Let you skimming the script example and go to read implementation guide in the next section.
+The finished code is available in examples folder
 
 File: helloworld.sh
 ```
 #!/bin/bash
 
-# Implementation of your script 
-#     SCRIPT_NAME
-#     DOMAIN_OPTION_NAME[]
-#     DOMAIN_OPTION_ALTERNATIVE_NAME[]
-#     DOMAIN_OPTION_DATA_TYPE[]
-#     DOMAIN_CMD_MANDATORY_OPTIONS[]
-#     DOMAIN_CMD_OPTIONS[]
-#     DOMAIN_OPTION_INPUT_DESC[]
+# Implementation of helloword script 
 
 # Script name
-SCRIPT_NAME="example1"
+BASH_CLI_SCRIPT_NAME="helloworld.sh"
 
 # Option name
-DOMAIN_OPTION_NAME[0]="-t"
-DOMAIN_OPTION_NAME[1]="-u"
-DOMAIN_OPTION_NAME[2]="-l"
-DOMAIN_OPTION_NAME[3]="hello"
+BASH_CLI_OPT_NAME[0]="-t"
+BASH_CLI_OPT_NAME[1]="-u"
+BASH_CLI_OPT_NAME[2]="-l"
+BASH_CLI_OPT_NAME[3]="hello"
 
 # Alternative option name
-DOMAIN_OPTION_ALTERNATIVE_NAME[0]="--text"
-DOMAIN_OPTION_ALTERNATIVE_NAME[1]="--uppercase"
-DOMAIN_OPTION_ALTERNATIVE_NAME[2]="--lowercase"
-DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld" 
+BASH_CLI_OPT_ALT_NAME[0]="--text"
+BASH_CLI_OPT_ALT_NAME[1]="--uppercase"
+BASH_CLI_OPT_ALT_NAME[2]="--lowercase"
+BASH_CLI_OPT_ALT_NAME[3]="helloworld" 
 
-# Option data type. It consists of string, boolean, and cmd.
-#   string does not allow you set empty option value
-#   object allows you flag the option without giving value
-#   cmd is the command used in various situations in your script. 
-#   cmd may require one or more mandatory or optional parameters
-DOMAIN_OPTION_DATA_TYPE[0]="string"
-DOMAIN_OPTION_DATA_TYPE[1]="boolean"
-DOMAIN_OPTION_DATA_TYPE[2]="boolean"
-DOMAIN_OPTION_DATA_TYPE[3]="cmd"
+# Data type consists of string, boolean, and cmd.
+#   - string does not allow you set empty option value
+#   - object allows you flag the option without giving value
+#   - cmd is the command used in various situations in your script. 
+BASH_CLI_OPT_DATA_TYPE[0]="string"
+BASH_CLI_OPT_DATA_TYPE[1]="boolean"
+BASH_CLI_OPT_DATA_TYPE[2]="boolean"
+BASH_CLI_OPT_DATA_TYPE[3]="cmd"
 
-# Setting mandatory parameters for cmd
-DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
+# Setting mandatory and optional parameters for cmd "hello"
+# A cmd data type may require one or more mandatory and optional parameters
+#
+# Requirements of hellworld.sh
+#
+# "-t | --text" is a mandatory parameter of the cmd "hello"
+# "-u | --uppercase" is an optional parameter of the cmd "hello"
+# "-l | --lowercase" is an optional parameter of the cmd "hello"
+#
+# Reference numbers
+#
+# The index reference number of BASH_CLI_OPT_NAME[3]="hello" is 3
+# The array index of BASH_CLI_OPT_NAME[0]="-t" is 0
+# The array index of BASH_CLI_OPT_NAME[1]="-u" is 1
+# The array index of BASH_CLI_OPT_NAME[2]="-l" is 2
 
-# Setting optional parameters for cmd
-DOMAIN_CMD_OPTIONS[3]="1,2"
+# BASH_CLI_OPT_NAME[3]="hello" requires BASH_CLI_OPT_NAME[0]="-t" as mandatory parameter
+BASH_CLI_MANDATORY_PARAM[3]="0"
+# BASH_CLI_OPT_NAME[3]="hello" requires BASH_CLI_OPT_NAME[1]="-u" 
+# and BASH_CLI_OPT_NAME[2]="-l" as optional parameter
+BASH_CLI_NON_MANDATORY_PARAM[3]="1,2"
 
-# Option input description
-DOMAIN_OPTION_INPUT_DESC[0]="text"
-DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
-DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
-DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
+# Setting description of the option
+BASH_CLI_OPT_DESC[0]="text"
+BASH_CLI_OPT_DESC[1]="use uppercase"
+BASH_CLI_OPT_DESC[2]="use lowercase"
+BASH_CLI_OPT_DESC[3]="To print text from the value of -t"
 
 # Implementation of "hello" command
 # 
-# DOMAIN_OPTION_VALUE[] is an array variable managed by base.sh
-# The number of array items of DOMAIN_OPTION_VALUE[] are identical to DOMAIN_OPTION_NAME[].
+# Getting parameter values
+# 
+# BASH_CLI_OPT_VALUE[] is an array variable that declared by the template base.sh
+# The value of BASH_CLI_OPT_VALUE[] will be managed by the template
 # 
 hello() {
     # -t | --text
-    TEXT=${DOMAIN_OPTION_VALUE[0]}
-
-    if [ "${TEXT}" == "Hello" ]; then
-        TEXT="Sawasdee!"
-    fi
-
-    if [ "${TEXT}" == "Sawasdee" ]; then
-        TEXT="Hello!"
-    fi
-
+    local text=${BASH_CLI_OPT_VALUE[0]}
     # -u | --uppercase
-    ENABLED_UPPERCASE=${DOMAIN_OPTION_VALUE[1]}
-    if [ ${ENABLED_UPPERCASE} == true ]; then
-        echo ${TEXT} | tr '[:lower:]' '[:upper:]'
-        exit
-    fi 
+    local enabled_uppercase=${BASH_CLI_OPT_VALUE[1]}
     # -l | --lowercase
-    ENABLED_LOWERCASE=${DOMAIN_OPTION_VALUE[2]}
-    if [ ${ENABLED_LOWERCASE} == true ]; then
-        echo ${TEXT} | tr '[:upper:]' '[:lower:]'
-        exit
+    local enabled_lowercase=${BASH_CLI_OPT_VALUE[2]}
+
+    if [ ${enabled_uppercase} == true ]; then
+        echo "${text}" | tr '[:lower:]' '[:upper:]'
+    elif [ ${enabled_lowercase} == true ]; then
+        echo "${text}" | tr '[:upper:]' '[:lower:]'
+    else 
+        echo "${text}" 
     fi 
 
-    echo ${TEXT} 
     exit
 }
 
@@ -153,97 +118,6 @@ source ../base.sh
 
 ``` 
 
-### Steps to write your own CLI script with bash-cli-template 
-
-This section describes the steps to write a simplified CLI using **bash-cli-template** and bring the script example (helloworld.sh) back to you again. **bash-cli-template** comes with **base.sh**. **base.sh** manages all interface works for you. Before allowing **bash-cli-template** can understand your command definitions, you have to follow a few steps below.
-
-#### Define the following variables in your script
-
- 1. SCRIPT_NAME
- 2. DOMAIN_OPTION_NAME[]
- 3. DOMAIN_OPTION_ALTERNATIVE_NAME[]
- 4. DOMAIN_OPTION_DATA_TYPE[]
- 5. DOMAIN_CMD_MANDATORY_OPTIONS[]
- 6. DOMAIN_CMD_OPTIONS[]
- 7. DOMAIN_OPTION_INPUT_DESC[]
-
-The command definition example in helloworld.sh.
-```
-SCRIPT_NAME="example1"
-DOMAIN_OPTION_NAME[0]="-t"
-DOMAIN_OPTION_NAME[1]="-u"
-DOMAIN_OPTION_NAME[2]="-l"
-DOMAIN_OPTION_NAME[3]="hello"
-DOMAIN_OPTION_ALTERNATIVE_NAME[0]="--text"
-DOMAIN_OPTION_ALTERNATIVE_NAME[1]="--uppercase"
-DOMAIN_OPTION_ALTERNATIVE_NAME[2]="--lowercase"
-DOMAIN_OPTION_ALTERNATIVE_NAME[3]="helloworld" 
-DOMAIN_OPTION_DATA_TYPE[0]="string"
-DOMAIN_OPTION_DATA_TYPE[1]="boolean"
-DOMAIN_OPTION_DATA_TYPE[2]="boolean"
-DOMAIN_OPTION_DATA_TYPE[3]="cmd"
-DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
-DOMAIN_CMD_OPTIONS[3]="1,2"
-DOMAIN_OPTION_INPUT_DESC[0]="text"
-DOMAIN_OPTION_INPUT_DESC[1]="use uppercase"
-DOMAIN_OPTION_INPUT_DESC[2]="use lowercase"
-DOMAIN_OPTION_INPUT_DESC[3]="To print text from the value of -t"
-```
-
-#### Declaring shell script function that corresponding to your command definition.
-
-By looking the following command definition in helloworld.sh, the data type of the option "hello" is "cmd". This means "hello" option is a command. hello() function must be declared in your script. 
-
-```
-DOMAIN_OPTION_NAME[3]="hello"
-DOMAIN_OPTION_DATA_TYPE[3]='cmd'
-```
-
-```
-hello() {
-  # the implementation of hello command    
-}
-```
-
-#### Implementing the body of your command
-
-
-##### Understanding DOMAIN_OPTION_VALUE[]
-
-In order to implement the body of the hello() function, the following variables are allowed to use inside the hello() function. 
-
-```
-DOMAIN_OPTION_VALUE[0]
-DOMAIN_OPTION_VALUE[1]
-DOMAIN_OPTION_VALUE[2]
-```
-
- * DOMAIN_OPTION_VALUE[0] is the string value of (-t|--text). It will be assigned by base.sh before calling hello()
- * DOMAIN_OPTION_VALUE[1] is the boolean value of (-u|--uppercase). It will be assigned by base.sh before calling hello()
- * DOMAIN_OPTION_VALUE[2] is the boolean value of (-l|--lowercase). It will be assigned by base.sh before calling hello()
-
-
-##### Understanding DOMAIN_CMD_MANDATORY_OPTIONS[] and DOMAIN_CMD_OPTIONS[]
-
-DOMAIN_OPTION_VALUE[0] , DOMAIN_OPTION_VALUE[1], and DOMAIN_OPTION_VALUE[2] are important for hello() function becasue the following definitions.
-
-```
-DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"
-DOMAIN_CMD_OPTIONS[3]="1,2"
-```
-
- * DOMAIN_CMD_MANDATORY_OPTIONS[3]="0"  means DOMAIN_OPTION_NAME[0]="-t" is mandatory parameter of hello command
- * DOMAIN_CMD_OPTIONS[3]="1,2" means DOMAIN_OPTION_NAME[1]="-u" and DOMAIN_OPTION_NAME[2]="-l" are optional parameter of hello command
-
-#### Installing bash-cli-template
-
-Add "source ./base.sh" at the end of your script
-
-```
-...
-
-source ./base.sh
-``` 
 # License 
 
 The MIT License (MIT)

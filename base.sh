@@ -4,100 +4,88 @@
 # MIT License 
 # Tested with GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin15)
 
-ALL_PARAMS=$@
-DEBUG=false
-CURRENT_CMD_INDEX=0
+BASH_CLI_ALL_ARGS=${@:2}
+BASH_CLI_CURRENT_CMD_INDEX=0
 
-for i in "${!DOMAIN_OPTION_NAME[@]}"
+for i in "${!BASH_CLI_OPT_NAME[@]}"
 do
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "" ];  then
-            DOMAIN_OPTION_DATA_TYPE[$i]="string"
+      if [ ! "${BASH_CLI_OPT_DATA_TYPE[$i]}"  ];  then
+            BASH_CLI_OPT_DATA_TYPE[$i]="string"
       fi
 
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "string" ] ; then 
-            DOMAIN_OPTION_VALUE[$i]="<undefined>"
+      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "string" ] ; then 
+            BASH_CLI_OPT_VALUE[$i]="<undefined>"
       fi   
 
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "boolean" ] ; then 
-            DOMAIN_OPTION_VALUE[$i]=false
+      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "boolean" ] ; then 
+            BASH_CLI_OPT_VALUE[$i]=false
       fi
 
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "cmd" ] ; then 
-            DOMAIN_OPTION_VALUE[$i]="wait"
+      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "cmd" ] ; then 
+            BASH_CLI_OPT_VALUE[$i]="wait"
       fi   
 done
 
 SPECLINES=""
-for i in "${!DOMAIN_OPTION_NAME[@]}"
+for i in "${!BASH_CLI_OPT_NAME[@]}"
 do
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" != "cmd" ];  then
-            SPECLINES="${SPECLINES} \t[${DOMAIN_OPTION_NAME[$i]}|${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} <${DOMAIN_OPTION_INPUT_DESC[$i]}>]\n"
+      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" != "cmd" ];  then
+            SPECLINES+=" \t[${BASH_CLI_OPT_NAME[$i]}|${BASH_CLI_OPT_ALT_NAME[$i]} <${BASH_CLI_OPT_DESC[$i]}>]\n"
       fi         
 done
-SPECLINES="${SPECLINES}\t[-d|--debug]\n"
-SPECLINES="${SPECLINES}\t[-h|--help]\n"
+SPECLINES+=" \t[-d|--debug]\n"
+SPECLINES+=" \t[-h|--help]\n"
 
 SCRIPT_OPTIONS=""
 SCRIPT_CMDS=""
-for i in "${!DOMAIN_OPTION_DATA_TYPE[@]}"
+for i in "${!BASH_CLI_OPT_DATA_TYPE[@]}"
 do
-      if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" != "cmd" ];  then
+      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" != "cmd" ];  then
             SCRIPT_OPTIONS="${SCRIPT_OPTIONS} 
-                              \t\t${DOMAIN_OPTION_NAME[$i]}  
-                              \tEx. ${DOMAIN_OPTION_INPUT_EXAMPLE[$i]}\n
-                              \t\t 
-                              \tNotes: ${DOMAIN_OPTION_INPUT_NOTES[$i]}\n"
+                              \t    ${BASH_CLI_OPT_NAME[$i]} \n"
       else 
 
             SCRIPT_CMDS="${SCRIPT_CMDS} 
-                              \t${DOMAIN_OPTION_NAME[$i]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} \n\n
-                              \t\t${DOMAIN_OPTION_INPUT_DESC[$i]} \n"
+                              \t${BASH_CLI_OPT_NAME[$i]} | ${BASH_CLI_OPT_ALT_NAME[$i]}
+                              \t    ${BASH_CLI_OPT_DESC[$i]} \n"
       fi
 done
 
 function help {
-      local HELP="\n
-            Usage: ./${SCRIPT_NAME} \n
-                   ${SPECLINES}
-            \n
-            \tThese are common ${SCRIPT_NAME} commands used in various situations:\n\n
+      echo -e "\n Usage: ./${BASH_CLI_SCRIPT_NAME} \n\n ${SPECLINES}
+            \tThese are common ${BASH_CLI_SCRIPT_NAME} commands used in various situations:
             ${SCRIPT_CMDS}
       "
-      echo -e ${HELP}
 }
-
-if [ "$1" == "" ];  then
+ 
+if [ $# -eq 0  ];  then
       help
       exit
 fi
 
 while [ "$1" != "" ]; do
-      for i in ${!DOMAIN_OPTION_NAME[@]}
+      for i in ${!BASH_CLI_OPT_NAME[@]}
       do
-            if [[ ( "${DOMAIN_OPTION_NAME[$i]}" == "$1" ) ||  
-                  ( "${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]}" == "$1" ) ]] ; then
-                  if [ "${DOMAIN_OPTION_DATA_TYPE[$i]}" == "string" ] ; then 
+            if [[ ( "${BASH_CLI_OPT_NAME[$i]}" == "$1" ) ||  
+                  ( "${BASH_CLI_OPT_ALT_NAME[$i]}" == "$1" ) ]] ; then
+                  if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "string" ] ; then 
                         if [[ ( ${2:0:1} == "-" ) || ( ${2:0:1} == "") ]] ; then 
-                              DOMAIN_OPTION_VALUE[$i]='<undefined>'
+                              BASH_CLI_OPT_VALUE[$i]='<undefined>'
                         else  
-                              DOMAIN_OPTION_VALUE[$i]=$2 
+                              BASH_CLI_OPT_VALUE[$i]=$2 
                               shift
                         fi
                   fi   
 
-                  if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "boolean" ] ; then 
-                        DOMAIN_OPTION_VALUE[$i]=true
+                  if [ ${BASH_CLI_OPT_DATA_TYPE[$i]} == "boolean" ] ; then 
+                        BASH_CLI_OPT_VALUE[$i]=true
                   fi 
 
-                  if [ ${DOMAIN_OPTION_DATA_TYPE[$i]} == "cmd" ] ; then 
-                        DOMAIN_OPTION_VALUE[$i]="invoked"
+                  if [ ${BASH_CLI_OPT_DATA_TYPE[$i]} == "cmd" ] ; then 
+                        BASH_CLI_OPT_VALUE[$i]="invoked"
                   fi 
   
             else 
-                  if [[ ( "$1" == "-d" ) || ( "$1" == "--debug" ) ]] ; then
-                        DEBUG=true
-                  fi
-
                   if [[ ( "$1" == "-h" ) || ( "$1" == "--help" ) ]] ; then
                         help
                         exit
@@ -110,82 +98,62 @@ done
 
 validate_mandatory_options(){
       local i
-      if [ $DEBUG == true ];  then 
-            echo -e "\tChecking mandatory parameters"
-      fi
-
-      for i in $(echo ${DOMAIN_CMD_MANDATORY_OPTIONS[$CURRENT_CMD_INDEX]} | tr "," "\n")
+      for i in $(echo ${BASH_CLI_MANDATORY_PARAM[$BASH_CLI_CURRENT_CMD_INDEX]} | tr "," "\n")
       do
-            validate_string_parameter "${DOMAIN_OPTION_NAME[$i]}" "${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]}"  "${DOMAIN_OPTION_VALUE[$i]}"
+            if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "boolean" ];  then
+                  echo -e "\n Warning!! \n"
+                  echo -e "\t Please check your implementation on the ${BASH_CLI_SCRIPT_NAME} script" 
+                  echo -e "\t All mandatory options (BASH_CLI_MANDATORY_PARAM[]) must be configured with string datatype option"
+                  echo -e "\t BASH_CLI_OPT_NAME[$i]=\"${BASH_CLI_OPT_NAME[$i]}\" is currently using boolean data type and it does not allow to be a mandatory option"
+                  echo -e "\n"
+                  exit
+            fi
+            validate_string_parameter "${BASH_CLI_OPT_NAME[$i]}" "${BASH_CLI_OPT_VALUE[$i]}" "${BASH_CLI_OPT_DATA_TYPE[$i]}" "${BASH_CLI_OPT_DESC[$i]}"
       done
-      
-      if [ $DEBUG == true ];  then
-            show_optional_parameters
-            echo -e "\n"
-      fi
 }
 
 validate_string_parameter() {
-      local psname=$1
-      local ptname=$2
-      local pvalue=$3
+      local pname=$1
+      local pvalue=$2
+      local pdatatype=$3
+      local pdesc=$4
       if [ "${pvalue}" == "<undefined>" ];  then
-            echo -e "\t\t${psname}|${ptname}  (Not Found)"
-            echo -e "\t\tUsage: \"${psname}|${ptname}\" is mandatory option"
-            exit
-      else 
-             if [ $DEBUG == true ];  then 
-                  echo -e "\t\t${psname} ${pvalue}  (OK)"
+            echo -e "\t\tMissing mandatory option: \"${pname}\" (${pdesc}) is mandatory option"
+
+            if [ "${pdatatype}" == "string" ];  then
+                  echo -e "\t\tExample: ./${BASH_CLI_SCRIPT_NAME} ${BASH_CLI_OPT_NAME[$BASH_CLI_CURRENT_CMD_INDEX]} ${pname} \"String Value\" "
             fi
+            exit
       fi
 }
 
 show_optional_parameters() {
       local i
-      local options=""
-      for i in $(echo "${DOMAIN_CMD_OPTIONS[$CURRENT_CMD_INDEX]}" | tr "," "\n")
+      local options
+      for i in $(echo "${BASH_CLI_NON_MANDATORY_PARAM[$BASH_CLI_CURRENT_CMD_INDEX]}" | tr "," "\n")
       do
-            options="${options} ${DOMAIN_OPTION_NAME[$i]}" 
+            options="${options} ${BASH_CLI_OPT_NAME[$i]}" 
       done
       echo -e "\n\tAll optional parameters of this command: ${options}"
 
       echo -e "\tCurrent value:"
-      for i in $(echo ${DOMAIN_CMD_OPTIONS[$CURRENT_CMD_INDEX]} | tr "," "\n")
+      for i in $(echo ${BASH_CLI_NON_MANDATORY_PARAM[$BASH_CLI_CURRENT_CMD_INDEX]} | tr "," "\n")
       do
-            echo -e "\t\t${DOMAIN_OPTION_NAME[$i]} ${DOMAIN_OPTION_VALUE[$i]}"
+            echo -e "\t\t${BASH_CLI_OPT_NAME[$i]} ${BASH_CLI_OPT_VALUE[$i]}"
       done       
 }
 
 process() {
-      local i
       local j
 
-      if [ $DEBUG == true ];  then
-            echo -e "\n\t*********** DEBUG ***********"
-            echo -e "\t-d | --debug = ${DEBUG}"
-            echo -e "\t-h | --help"
-            for i in ${!DOMAIN_OPTION_NAME[@]}
-            do
-                   echo -e "\t${DOMAIN_OPTION_NAME[$i]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$i]} = ${DOMAIN_OPTION_VALUE[$i]}"
-            done            
-            echo -e "\t*********** DEBUG ***********"
-      fi
-
-      for j in "${!DOMAIN_OPTION_NAME[@]}"
+      for j in "${!BASH_CLI_OPT_NAME[@]}"
       do
-
-            if [ "${DOMAIN_OPTION_DATA_TYPE[$j]}" == "cmd" ];  then
-                  if [ "${DOMAIN_OPTION_VALUE[$j]}" == "invoked" ];  then
-
-                        CURRENT_CMD_INDEX=$j
-                        echo "CURRENT_CMD_INDEX=$CURRENT_CMD_INDEX"
-
-                        if [ $DEBUG == true ];  then
-                              echo -e "\ninvoking (${DOMAIN_OPTION_NAME[$j]} | ${DOMAIN_OPTION_ALTERNATIVE_NAME[$j]}) command...\n"
-                        fi
-                        
+            if [ "${BASH_CLI_OPT_DATA_TYPE[$j]}" == "cmd" ];  then
+                  if [ "${BASH_CLI_OPT_VALUE[$j]}" == "invoked" ];  then
+                        BASH_CLI_CURRENT_CMD_INDEX=$j
                         validate_mandatory_options
-                        ${DOMAIN_OPTION_NAME[$CURRENT_CMD_INDEX]} 
+                        ${BASH_CLI_OPT_NAME[$BASH_CLI_CURRENT_CMD_INDEX]} 
+                        # ${BASH_CLI_OPT_NAME[$BASH_CLI_CURRENT_CMD_INDEX]} "${BASH_CLI_ALL_ARGS}"
                         break
                   fi
                   
@@ -193,5 +161,5 @@ process() {
       done
 }
 
-process 
+process $BASH_CLI_ALL_ARGS
 
