@@ -1,10 +1,6 @@
 
 # Bash shell script template for readability CLI
 
-
-![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
-
-
 # Features
 
  * **bash-cli-template** allows you writing a readability CLI script 
@@ -29,7 +25,7 @@ $ ./helloworld.sh
 
 Writing CLI script with **bash-cli-template** requires configuration of the following shell constants.
 
-You have to define value for all constants in making structure of the CLI. **bash-cli-template** will provide interface and control basic flows of readability CLI automatically based on the given constant values.
+You have to define value for all constants in making structure of the CLI. **bash-cli-template** will provide interface and basic flows of the CLI automatically based on the given constant values.
 
  1. BASH_CLI_SCRIPT_NAME
  2. BASH_CLI_OPT_NAME
@@ -38,6 +34,14 @@ You have to define value for all constants in making structure of the CLI. **bas
  5. BASH_CLI_MANDATORY_PARAM
  6. BASH_CLI_NON_MANDATORY_PARAM
  7. BASH_CLI_OPT_DESC
+
+
+#### Requirements of helloworld.sh
+
+![Logo](https://github.com/vorachet/bash-cli-template/raw/master/screenshot/demo.gif)
+
+
+#### Writing helloworld.sh
 
 File: helloworld.sh (The finished code is available in examples folder)
 
