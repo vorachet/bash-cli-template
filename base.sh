@@ -10,20 +10,22 @@ BASH_CLI_CURRENT_CMD_INDEX=0
 for i in "${!BASH_CLI_OPT_NAME[@]}"
 do
       if [ ! "${BASH_CLI_OPT_DATA_TYPE[$i]}"  ];  then
-            BASH_CLI_OPT_DATA_TYPE[$i]="string"
+            echo "BASH_CLI_OPT_DATA_TYPE[$i]=\"\" empty string is not allowed."
+            echo "The value must be one of these: \"string\", \"boolean\", or \"cmd\""
+            exit
+      else 
+            if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "string" ] ; then 
+                  BASH_CLI_OPT_VALUE[$i]="<undefined>"
+            elif [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "boolean" ] ; then 
+                  BASH_CLI_OPT_VALUE[$i]=false
+            elif [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "cmd" ] ; then 
+                  BASH_CLI_OPT_VALUE[$i]="wait"
+            else 
+                  echo "BASH_CLI_OPT_DATA_TYPE[$i]=${BASH_CLI_OPT_DATA_TYPE[$i]} is not allowed."
+                  echo "The value must be one of these: \"string\", \"boolean\", or \"cmd\""
+                  exit
+            fi   
       fi
-
-      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "string" ] ; then 
-            BASH_CLI_OPT_VALUE[$i]="<undefined>"
-      fi   
-
-      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "boolean" ] ; then 
-            BASH_CLI_OPT_VALUE[$i]=false
-      fi
-
-      if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "cmd" ] ; then 
-            BASH_CLI_OPT_VALUE[$i]="wait"
-      fi   
 done
 
 SPECLINES=""
