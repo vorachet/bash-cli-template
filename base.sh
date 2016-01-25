@@ -103,7 +103,7 @@ validate_mandatory_options(){
       do
             if [ "${BASH_CLI_OPT_DATA_TYPE[$i]}" == "boolean" ];  then
                   echo -e "\n Warning!! \n"
-                  echo -e "\t Please check your implementation on the ${BASH_CLI_SCRIPT_NAME} script" 
+                  echo -e "\t Please check your script implementation" 
                   echo -e "\t All mandatory options (BASH_CLI_MANDATORY_PARAM[]) must be configured with string datatype option"
                   echo -e "\t BASH_CLI_OPT_NAME[$i]=\"${BASH_CLI_OPT_NAME[$i]}\" is currently using boolean data type and it does not allow to be a mandatory option"
                   echo -e "\n"
